@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio - M&M Noble Bar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #0d0d0d;
+      --bg-card: #151515;
+      --text-white: #f5f5f0;
+      --text-cream: #e8e4dc;
+      --gold: #c9a962;
+      --gold-light: #e0c98a;
+      --border-gold: rgba(201, 169, 98, 0.5);
+      --shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-cream);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+    }
+
+    /* ========== NAVBAR ========== */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      background: rgba(13, 13, 13, 0.6);
+      backdrop-filter: blur(8px);
+      transition: background 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .navbar.scrolled {
+      background: rgba(13, 13, 13, 0.95);
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .navbar-logo {
+      height: 50px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .nav-menu {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+
+    .nav-menu a {
+      color: var(--text-cream);
+      text-decoration: none;
+      font-weight: 400;
+      font-size: 0.95rem;
+      letter-spacing: 0.05em;
+      transition: color 0.3s ease;
+    }
+
+    .nav-menu a:hover,
+    .nav-menu a.active {
+      color: var(--gold);
+    }
+
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      padding: 0.5rem 0.75rem;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    /* ========== PAGE TITLE ========== */
+    .page-header {
+      padding: 6rem 2rem 3rem;
+      text-align: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .page-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      color: var(--text-white);
+    }
+
+    /* ========== PORTFOLIO GRID ========== */
+    .portfolio-section {
+      padding: 0 2rem 4rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .portfolio-card {
+      position: relative;
+      aspect-ratio: 1;
+      border: 1px solid var(--border-gold);
+      border-radius: 4px;
+      overflow: hidden;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      transition: box-shadow 0.3s ease;
+    }
+
+    .portfolio-card:hover {
+      box-shadow: 0 8px 32px rgba(201, 169, 98, 0.2);
+    }
+
+    .portfolio-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, transparent 50%);
+      opacity: 0.8;
+      transition: opacity 0.3s ease, background 0.3s ease;
+      pointer-events: none;
+    }
+
+    .portfolio-card:hover::after {
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(201, 169, 98, 0.15) 100%);
+    }
+
+    .portfolio-card-img-wrap {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+
+    .portfolio-card-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .portfolio-card:hover .portfolio-card-img {
+      transform: scale(1.08);
+    }
+
+    .portfolio-card-title {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 1.25rem 1rem;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+      color: var(--text-white);
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 600;
+      z-index: 2;
+    }
+
+    @media (max-width: 992px) {
+      .portfolio-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 576px) {
+      .portfolio-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .portfolio-section {
+        padding: 0 1rem 3rem;
+      }
+
+      .page-header {
+        padding: 5rem 1rem 2rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .navbar {
+        padding: 0.75rem 1rem;
+      }
+
+      .navbar-logo {
+        height: 40px;
+      }
+    }
+
+    /* ========== LIGHTBOX ========== */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+      background: rgba(0, 0, 0, 0.95);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .lightbox.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .lightbox-backdrop {
+      position: absolute;
+      inset: 0;
+      cursor: pointer;
+    }
+
+    .lightbox-content {
+      position: relative;
+      max-width: 900px;
+      width: 100%;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 1;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: -3rem;
+      right: 0;
+      width: 44px;
+      height: 44px;
+      background: transparent;
+      border: 2px solid var(--gold);
+      color: var(--gold);
+      font-size: 1.5rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      z-index: 10;
+    }
+
+    .lightbox-close:hover {
+      background: var(--gold);
+      color: var(--bg-dark);
+    }
+
+    .lightbox-img-wrap {
+      width: 100%;
+      max-height: 60vh;
+      overflow: hidden;
+      border: 1px solid var(--border-gold);
+      border-radius: 4px;
+    }
+
+    .lightbox-img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    .lightbox-info {
+      margin-top: 1.5rem;
+      text-align: center;
+      color: var(--text-white);
+    }
+
+    .lightbox-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: var(--gold);
+      margin-bottom: 0.75rem;
+    }
+
+    .lightbox-desc {
+      font-size: 0.95rem;
+      color: var(--text-cream);
+      font-weight: 300;
+      line-height: 1.6;
+    }
+
+    .lightbox-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 50px;
+      height: 50px;
+      background: transparent;
+      border: 2px solid var(--gold);
+      color: var(--gold);
+      font-size: 1.25rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      z-index: 10;
+    }
+
+    .lightbox-nav:hover {
+      background: var(--gold);
+      color: var(--bg-dark);
+    }
+
+    .lightbox-prev {
+      left: 1rem;
+    }
+
+    .lightbox-next {
+      right: 1rem;
+    }
+
+    @media (max-width: 768px) {
+      .lightbox-nav {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+      }
+
+      .lightbox-prev {
+        left: 0.5rem;
+      }
+
+      .lightbox-next {
+        right: 0.5rem;
+      }
+    }
+
+    /* ========== FOOTER ========== */
+    footer {
+      background: #0a0a0a;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      border-top: 1px solid rgba(201, 169, 98, 0.2);
+    }
+
+    .footer-contact {
+      margin-bottom: 1.5rem;
+      font-size: 0.95rem;
+    }
+
+    .footer-contact a {
+      color: var(--gold);
+      text-decoration: none;
+      margin: 0 0.5rem;
+    }
+
+    .footer-contact a:hover {
+      text-decoration: underline;
+    }
+
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 1.25rem;
+      margin-top: 1rem;
+    }
+
+    .social-icons a {
+      color: var(--text-cream);
+      font-size: 1.25rem;
+      transition: color 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+    }
+
+    .social-icons svg {
+      width: 22px;
+      height: 22px;
+      fill: currentColor;
+    }
+
+    .social-icons a:hover {
+      color: var(--gold);
+    }
+
+    /* Responsive nav */
+    @media (max-width: 768px) {
+      .nav-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: rgba(13, 13, 13, 0.98);
+        flex-direction: column;
+        padding: 1rem;
+        gap: 0.5rem;
+      }
+
+      .nav-menu.active {
+        display: flex;
+      }
+
+      .nav-toggle {
+        display: block;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <a href="index.html">
+      <img src="https://static.wixstatic.com/media/c76f97_962f91a556854546bad9e7a654bc6a67~mv2.png" alt="M&M Noble Bar" class="navbar-logo">
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">☰</button>
+    <ul class="nav-menu" id="navMenu">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="index.html#contatti">Contattaci</a></li>
+      <li><a href="index.html#servizi">Servizi</a></li>
+      <li><a href="portfolio.html" class="active">Portfolio</a></li>
+    </ul>
+  </nav>
+
+  <!-- PAGE TITLE -->
+  <header class="page-header">
+    <h1 class="page-title">Portfolio</h1>
+  </header>
+
+  <!-- PORTFOLIO GRID -->
+  <section class="portfolio-section">
+    <div class="portfolio-grid" id="portfolioGrid">
+      <div class="portfolio-card" data-index="0" data-title="Allestimento Bar di Lusso per Eventi Privati" data-desc="Allestimento completo di un open bar di lusso per un evento privato esclusivo. Bancone personalizzato, ghiaccio cristallino con logo inciso e drink list sartoriale." data-image="https://static.wixstatic.com/media/c76f97_517fedc28a9048c690d5cfdf1850f9a4~mv2.jpg">
+        <div class="portfolio-card-img-wrap">
+          <img src="https://static.wixstatic.com/media/c76f97_517fedc28a9048c690d5cfdf1850f9a4~mv2.jpg" alt="Allestimento Bar di Lusso" class="portfolio-card-img">
+        </div>
+        <h3 class="portfolio-card-title">Allestimento Bar di Lusso per Eventi Privati</h3>
+      </div>
+      <div class="portfolio-card" data-index="1" data-title="Cocktail D'Autore per Celebrazioni Raffinate" data-desc="Creazioni signature realizzate appositamente per una celebrazione raffinata. Ogni cocktail racconta una storia unica." data-image="https://static.wixstatic.com/media/c76f97_d1f0d5869d5f42b5b5484142b295379d~mv2.jpg">
+        <div class="portfolio-card-img-wrap">
+          <img src="https://static.wixstatic.com/media/c76f97_d1f0d5869d5f42b5b5484142b295379d~mv2.jpg" alt="Cocktail D'Autore" class="portfolio-card-img">
+        </div>
+        <h3 class="portfolio-card-title">Cocktail D'Autore per Celebrazioni Raffinate</h3>
+      </div>
+      <div class="portfolio-card" data-index="2" data-title="Eleganza Nuziale Open Bar" data-desc="Servizio open bar per matrimonio con allestimento elegante, outfit coordinato del team e cocktail pensati per la coppia." data-image="https://static.wixstatic.com/media/c76f97_3b6aef0e721a4feaa58a1669e4f9cd33~mv2.jpg">
+        <div class="portfolio-card-img-wrap">
+          <img src="https://static.wixstatic.com/media/c76f97_3b6aef0e721a4feaa58a1669e4f9cd33~mv2.jpg" alt="Eleganza Nuziale" class="portfolio-card-img">
+        </div>
+        <h3 class="portfolio-card-title">Eleganza Nuziale Open Bar</h3>
+      </div>
+      <div class="portfolio-card" data-index="3" data-title="Esperienza Bar Inesauribile per Matrimoni" data-desc="Un servizio senza interruzioni per tutta la durata del matrimonio. Dalla cerimonia al dopo cena, il bar non si ferma mai." data-image="https://static.wixstatic.com/media/c76f97_968c0c444b7541d58946664b4dc3554a~mv2.jpg">
+        <div class="portfolio-card-img-wrap">
+          <img src="https://static.wixstatic.com/media/c76f97_968c0c444b7541d58946664b4dc3554a~mv2.jpg" alt="Esperienza Bar Inesauribile" class="portfolio-card-img">
+        </div>
+        <h3 class="portfolio-card-title">Esperienza Bar Inesauribile per Matrimoni</h3>
+      </div>
+      <div class="portfolio-card" data-index="4" data-title="Design Personalizzato Lista Drink" data-desc="Drink list progettata su misura con menu stampato personalizzato, guarnizioni botaniche fresche e presentazione scenografica." data-image="https://static.wixstatic.com/media/c76f97_fe7907555f194be7b01d60f8e031f713~mv2.jpg">
+        <div class="portfolio-card-img-wrap">
+          <img src="https://static.wixstatic.com/media/c76f97_fe7907555f194be7b01d60f8e031f713~mv2.jpg" alt="Design Personalizzato Lista Drink" class="portfolio-card-img">
+        </div>
+        <h3 class="portfolio-card-title">Design Personalizzato Lista Drink</h3>
+      </div>
+      <div class="portfolio-card" data-index="5" data-title="Creazioni Esclusive di Cocktail Artigianali" data-desc="Cocktail artigianali preparati con distillati selezionati e ingredienti freschi. Ogni ricetta è esclusiva e non replicabile altrove." data-image="https://static.wixstatic.com/media/c76f97_7018abeafaa44439b00fbeb3abf91b80~mv2.jpg">
+        <div class="portfolio-card-img-wrap">
+          <img src="https://static.wixstatic.com/media/c76f97_7018abeafaa44439b00fbeb3abf91b80~mv2.jpg" alt="Creazioni Esclusive" class="portfolio-card-img">
+        </div>
+        <h3 class="portfolio-card-title">Creazioni Esclusive di Cocktail Artigianali</h3>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Dettaglio progetto">
+    <div class="lightbox-backdrop" id="lightboxBackdrop"></div>
+    <div class="lightbox-content">
+      <button class="lightbox-close" id="lightboxClose" aria-label="Chiudi">×</button>
+      <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Progetto precedente">&#10094;</button>
+      <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Progetto successivo">&#10095;</button>
+      <div class="lightbox-img-wrap">
+        <img src="" alt="" class="lightbox-img" id="lightboxImg">
+      </div>
+      <div class="lightbox-info">
+        <h2 class="lightbox-title" id="lightboxTitle"></h2>
+        <p class="lightbox-desc" id="lightboxDesc"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-contact">
+      <a href="tel:1234567890">Phone: 123-456-7890</a>
+      <a href="mailto:info@mysite.com">Email: info@mysite.com</a>
+    </div>
+    <div class="social-icons">
+      <a href="#" aria-label="Facebook" title="Facebook"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+      <a href="#" aria-label="Twitter" title="Twitter"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+      <a href="#" aria-label="LinkedIn" title="LinkedIn"><svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+      <a href="#" aria-label="Instagram" title="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+    </div>
+  </footer>
+
+  <script>
+    // Navbar scroll
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', function() {
+      navbar.classList.toggle('scrolled', window.scrollY > 80);
+    });
+
+    // Mobile menu
+    const navToggle = document.getElementById('navToggle');
+    const navMenu = document.getElementById('navMenu');
+    navToggle.addEventListener('click', () => navMenu.classList.toggle('active'));
+    document.querySelectorAll('.nav-menu a').forEach(link => {
+      link.addEventListener('click', () => navMenu.classList.remove('active'));
+    });
+
+    // Lightbox
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const lightboxTitle = document.getElementById('lightboxTitle');
+    const lightboxDesc = document.getElementById('lightboxDesc');
+    const lightboxClose = document.getElementById('lightboxClose');
+    const lightboxBackdrop = document.getElementById('lightboxBackdrop');
+    const lightboxPrev = document.getElementById('lightboxPrev');
+    const lightboxNext = document.getElementById('lightboxNext');
+
+    const cards = document.querySelectorAll('.portfolio-card');
+    let currentIndex = 0;
+
+    function openLightbox(index) {
+      currentIndex = index;
+      const card = cards[index];
+      lightboxImg.src = card.dataset.image;
+      lightboxImg.alt = card.dataset.title;
+      lightboxTitle.textContent = card.dataset.title;
+      lightboxDesc.textContent = card.dataset.desc;
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    function showPrev() {
+      currentIndex = (currentIndex - 1 + cards.length) % cards.length;
+      openLightbox(currentIndex);
+    }
+
+    function showNext() {
+      currentIndex = (currentIndex + 1) % cards.length;
+      openLightbox(currentIndex);
+    }
+
+    cards.forEach((card, index) => {
+      card.addEventListener('click', () => openLightbox(index));
+    });
+
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightboxBackdrop.addEventListener('click', function(e) {
+      if (e.target === lightboxBackdrop) closeLightbox();
+    });
+
+    lightboxPrev.addEventListener('click', function(e) {
+      e.stopPropagation();
+      showPrev();
+    });
+    lightboxNext.addEventListener('click', function(e) {
+      e.stopPropagation();
+      showNext();
+    });
+
+    document.addEventListener('keydown', function(e) {
+      if (!lightbox.classList.contains('active')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') showPrev();
+      if (e.key === 'ArrowRight') showNext();
+    });
+  </script>
+</body>
+</html>
