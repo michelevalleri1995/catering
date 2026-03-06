@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy - M&M Noble Bar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #0d0d0d;
+      --bg-card: #151515;
+      --text-white: #f5f5f0;
+      --text-cream: #e8e4dc;
+      --gold: #c9a962;
+      --gold-light: #e0c98a;
+      --border-gold: rgba(201, 169, 98, 0.5);
+      --shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Lato', sans-serif; background: var(--bg-dark); color: var(--text-cream); line-height: 1.7; overflow-x: hidden; }
+    h1, h2, h3 { font-family: 'Playfair Display', serif; font-weight: 600; }
+
+    .navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 2rem;
+      background: rgba(13, 13, 13, 0.6); backdrop-filter: blur(8px);
+      transition: background 0.4s ease, box-shadow 0.4s ease;
+    }
+    .navbar.scrolled { background: rgba(13, 13, 13, 0.95); box-shadow: 0 2px 20px rgba(0,0,0,0.5); }
+    .navbar-logo { height: 50px; width: auto; object-fit: contain; }
+    .nav-menu {
+      position: absolute; left: 50%; transform: translateX(-50%);
+      display: flex; list-style: none; gap: 2rem;
+    }
+    .nav-menu a { color: var(--text-cream); text-decoration: none; font-size: 0.95rem; letter-spacing: 0.05em; transition: color 0.3s ease; }
+    .nav-menu a:hover { color: var(--gold); }
+    .nav-toggle { display: none; background: none; border: 1px solid var(--gold); color: var(--gold); padding: 0.5rem 0.75rem; cursor: pointer; font-size: 1rem; }
+
+    .legal-page { padding: 6rem 2rem 4rem; max-width: 800px; margin: 0 auto; }
+    .legal-page h1 { color: var(--text-white); font-size: clamp(1.8rem, 4vw, 2.5rem); margin-bottom: 2rem; }
+    .legal-page h2 { color: var(--gold); font-size: 1.25rem; margin-top: 2rem; margin-bottom: 0.75rem; }
+    .legal-page p { margin-bottom: 1rem; font-size: 0.95rem; color: var(--text-cream); }
+    .legal-page ul { margin: 0.5rem 0 1rem 1.5rem; }
+    .legal-page li { margin-bottom: 0.5rem; }
+    .legal-page a { color: var(--gold); text-decoration: underline; }
+    .legal-page a:hover { color: var(--gold-light); }
+    .legal-updated { font-size: 0.9rem; color: var(--gold-light); margin-bottom: 2rem; }
+
+    footer {
+      background: #0a0a0a; padding: 2.5rem 2rem; text-align: center;
+      border-top: 1px solid rgba(201, 169, 98, 0.2);
+    }
+    .footer-contact { margin-bottom: 1.5rem; font-size: 0.95rem; }
+    .footer-contact a { color: var(--gold); text-decoration: none; margin: 0 0.5rem; }
+    .footer-contact a:hover { text-decoration: underline; }
+    .social-icons { display: flex; justify-content: center; gap: 1.25rem; margin-top: 1rem; }
+    .social-icons a { color: var(--text-cream); display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; transition: color 0.3s ease; }
+    .social-icons a:hover { color: var(--gold); }
+    .social-icons svg { width: 22px; height: 22px; fill: currentColor; }
+
+    .cookie-banner { position: fixed; bottom: 0; left: 0; right: 0; z-index: 9999; background: #0d0d0d; border-top: 2px solid var(--gold); padding: 1.25rem 2rem; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; box-shadow: 0 -4px 24px rgba(0,0,0,0.5); font-size: 0.95rem; }
+    .cookie-banner.hidden { display: none; }
+    .cookie-banner-text { color: var(--text-cream); flex: 1; min-width: 200px; }
+    .cookie-banner-btns { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; }
+    .cookie-btn { padding: 0.6rem 1.25rem; font-family: 'Lato', sans-serif; font-size: 0.9rem; font-weight: 600; letter-spacing: 0.05em; cursor: pointer; border-radius: 4px; transition: all 0.3s ease; }
+    .cookie-btn-accept { background: var(--gold); color: var(--bg-dark); border: 2px solid var(--gold); }
+    .cookie-btn-accept:hover { background: var(--gold-light); border-color: var(--gold-light); }
+    .cookie-btn-necessary { background: transparent; color: var(--gold); border: 2px solid var(--gold); }
+    .cookie-btn-necessary:hover { background: rgba(201,169,98,0.15); }
+    .cookie-link { background: none; border: none; color: var(--text-cream); font-size: 0.85rem; text-decoration: underline; cursor: pointer; font-family: 'Lato', sans-serif; }
+    .cookie-link:hover { color: var(--gold); }
+    .cookie-modal { position: fixed; inset: 0; z-index: 10000; display: flex; align-items: center; justify-content: center; padding: 1rem; }
+    .cookie-modal[hidden] { display: none; }
+    .cookie-modal-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.85); cursor: pointer; }
+    .cookie-modal-content { position: relative; background: var(--bg-card); border: 1px solid var(--border-gold); border-radius: 4px; padding: 2rem; max-width: 420px; width: 100%; box-shadow: var(--shadow); }
+    .cookie-modal-content h3 { font-family: 'Playfair Display', serif; color: var(--gold); margin-bottom: 1rem; font-size: 1.35rem; }
+    .cookie-modal-content p { font-size: 0.9rem; color: var(--text-cream); margin-bottom: 1rem; }
+    .cookie-pref-item { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1rem; font-size: 0.95rem; color: var(--text-cream); }
+    .cookie-pref-item input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--gold); cursor: pointer; }
+    .cookie-pref-item input:disabled { cursor: not-allowed; }
+    .cookie-modal-content .cookie-policy-link { display: inline-block; margin-bottom: 1.25rem; font-size: 0.85rem; color: var(--gold); text-decoration: underline; }
+    .cookie-modal-content .cookie-policy-link:hover { color: var(--gold-light); }
+
+    @media (max-width: 768px) {
+      .nav-menu { display: none; position: absolute; top: 100%; left: 0; right: 0; transform: none; background: rgba(13,13,13,0.98); flex-direction: column; padding: 1rem; gap: 0.5rem; }
+      .nav-menu.active { display: flex; }
+      .nav-toggle { display: block; }
+    }
+    @media (max-width: 480px) {
+      .navbar { padding: 0.75rem 1rem; }
+      .navbar-logo { height: 40px; }
+      .legal-page { padding: 5rem 1rem 3rem; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar" id="navbar">
+    <a href="index.html"><img src="https://static.wixstatic.com/media/c76f97_962f91a556854546bad9e7a654bc6a67~mv2.png" alt="M&M Noble Bar" class="navbar-logo"></a>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">☰</button>
+    <ul class="nav-menu" id="navMenu">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="contatti.html">Contattaci</a></li>
+      <li><a href="index.html#servizi">Servizi</a></li>
+      <li><a href="portfolio.html">Portfolio</a></li>
+    </ul>
+  </nav>
+
+  <main class="legal-page">
+    <h1>Privacy Policy</h1>
+    <p class="legal-updated">Ultimo aggiornamento: marzo 2025</p>
+
+    <p>La presente Informativa sulla privacy descrive come M&M Noble Bar raccoglie, utilizza e protegge i tuoi dati personali in conformità al Regolamento (UE) 2016/679 (GDPR) e al D.Lgs. 196/2003 (Codice privacy italiano).</p>
+
+    <h2>1. Titolare del trattamento</h2>
+    <p>Il titolare del trattamento dei dati personali è:</p>
+    <p><strong>M&M Noble Bar</strong><br>
+    Email: info@mysite.com<br>
+    Telefono: 123-456-7890</p>
+
+    <h2>2. Dati raccolti</h2>
+    <p>Raccogliamo i seguenti dati personali attraverso il modulo di contatto presente sul sito:</p>
+    <ul>
+      <li><strong>Nome</strong> – per identificare l’utente che ci contatta</li>
+      <li><strong>Indirizzo email</strong> – per rispondere alle richieste e inviare comunicazioni relative al servizio</li>
+      <li><strong>Messaggio</strong> – contenuto della richiesta (preventivi, informazioni, prenotazioni)</li>
+    </ul>
+    <p>Inoltre, il sito utilizza <strong>cookie</strong> (tecnici, analitici e di marketing, secondo le preferenze espresse tramite il banner cookie). Per i dettagli si rimanda alla sezione Cookie e alla possibilità di gestire le preferenze in qualsiasi momento.</p>
+
+    <h2>3. Base giuridica e finalità del trattamento</h2>
+    <p>I dati forniti tramite il form contatti sono trattati sulla base:</p>
+    <ul>
+      <li>dell’<strong>esecuzione di misure precontrattuali</strong> (art. 6.1.b GDPR) – per gestire richieste di preventivo e di informazioni;</li>
+      <li>del <strong>legittimo interesse</strong> (art. 6.1.f GDPR) – per migliorare i nostri servizi e la comunicazione con i clienti.</li>
+    </ul>
+    <p>Le finalità del trattamento sono: rispondere alle richieste inviate tramite il modulo di contatto, fornire preventivi, gestire prenotazioni e comunicazioni relative ai servizi di open bar e catering, e rispettare obblighi di legge.</p>
+
+    <h2>4. Destinatari e trasferimenti</h2>
+    <p>I dati personali possono essere comunicati a soggetti che forniscono servizi tecnici (es. hosting, gestione del sito) che agiscono come responsabili del trattamento. Non effettuiamo trasferimenti di dati verso Paesi extra UE, salvo nel caso in cui sia strettamente necessario per l’erogazione del servizio e nel rispetto delle garanzie previste dal GDPR (clausole contrattuali tipo o decisioni di adeguatezza).</p>
+
+    <h2>5. Conservazione dei dati</h2>
+    <p>I dati raccolti tramite il form contatti sono conservati per il tempo necessario a evadere la richiesta e, in assenza di specifiche indicazioni di legge, per un periodo non superiore a 24 mesi dalla ultima comunicazione, salvo obblighi di conservazione legale. I cookie hanno durata variabile come indicato nella gestione preferenze cookie.</p>
+
+    <h2>6. Diritti dell’interessato</h2>
+    <p>In qualità di interessato hai diritto a:</p>
+    <ul>
+      <li><strong>Accesso</strong> (art. 15 GDPR) – ottenere conferma dell’esistenza di dati che ti riguardano e riceverne copia</li>
+      <li><strong>Rettifica</strong> (art. 16 GDPR) – ottenere la correzione di dati inesatti o incompleti</li>
+      <li><strong>Cancellazione</strong> (art. 17 GDPR) – ottenere la cancellazione dei dati in determinate condizioni</li>
+      <li><strong>Limitazione</strong> (art. 18 GDPR) – ottenere la limitazione del trattamento in determinate circostanze</li>
+      <li><strong>Portabilità</strong> (art. 20 GDPR) – ricevere i dati in formato strutturato e trasmetterli ad altro titolare</li>
+      <li><strong>Opposizione</strong> (art. 21 GDPR) – opporti al trattamento per motivi legittimi</li>
+      <li><strong>Revoca del consenso</strong> – ove il trattamento sia basato sul consenso, revocarlo in qualsiasi momento senza pregiudicare la liceità del trattamento precedente</li>
+      <li><strong>Reclamo</strong> – proporre reclamo all’Autorità Garante per la protezione dei dati personali (www.garanteprivacy.it)</li>
+    </ul>
+    <p>Per esercitare i tuoi diritti puoi scrivere al titolare ai recapiti indicati sopra (email o telefono).</p>
+
+    <h2>7. Cookie</h2>
+    <p>Il sito utilizza cookie per garantire il funzionamento delle pagine (cookie necessari), per analisi statistiche (cookie analitici) e, previo consenso, per finalità di marketing (cookie di marketing). Puoi accettare tutti i cookie, scegliere solo i necessari o gestire le preferenze tramite il banner e il link “Gestisci preferenze” presente in calce al sito. La scelta viene memorizzata in locale (localStorage) e non viene mostrato nuovamente il banner fino a modifica o cancellazione dei dati di navigazione.</p>
+
+    <h2>8. Sicurezza</h2>
+    <p>Adottiamo misure tecniche e organizzative adeguate per proteggere i dati personali da accessi non autorizzati, perdita, distruzione o alterazione, in conformità agli obblighi del GDPR.</p>
+
+    <h2>9. Modifiche</h2>
+    <p>La presente Privacy Policy può essere aggiornata nel tempo. La data dell’ultimo aggiornamento è indicata in alto. Si consiglia di consultare periodicamente questa pagina per restare informati su eventuali modifiche.</p>
+  </main>
+
+  <footer>
+    <div class="footer-contact">
+      <a href="tel:1234567890">Phone: 123-456-7890</a>
+      <a href="mailto:info@mysite.com">Email: info@mysite.com</a>
+      <a href="privacy-policy.html">Privacy Policy</a>
+    </div>
+    <div class="social-icons">
+      <a href="#" aria-label="Facebook" title="Facebook"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+      <a href="#" aria-label="Twitter" title="Twitter"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+      <a href="#" aria-label="LinkedIn" title="LinkedIn"><svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+      <a href="#" aria-label="Instagram" title="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+    </div>
+  </footer>
+
+  <div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Informativa cookie">
+    <p class="cookie-banner-text">Utilizziamo i cookie per migliorare la tua esperienza sul sito. Puoi accettare tutti i cookie o gestire le tue preferenze.</p>
+    <div class="cookie-banner-btns">
+      <button type="button" class="cookie-btn cookie-btn-accept" id="cookieAcceptAll">Accetta tutti</button>
+      <button type="button" class="cookie-btn cookie-btn-necessary" id="cookieNecessaryOnly">Solo necessari</button>
+      <button type="button" class="cookie-link" id="cookiePreferences">Gestisci preferenze</button>
+    </div>
+  </div>
+  <div class="cookie-modal" id="cookieModal" role="dialog" aria-modal="true" aria-label="Preferenze cookie" hidden>
+    <div class="cookie-modal-backdrop" id="cookieModalBackdrop"></div>
+    <div class="cookie-modal-content">
+      <h3>Preferenze cookie</h3>
+      <p>Seleziona quali categorie di cookie desideri abilitare. I cookie necessari sono sempre attivi per il funzionamento del sito.</p>
+      <div class="cookie-pref-item"><span>Cookie necessari</span><input type="checkbox" id="prefNecessary" checked disabled></div>
+      <div class="cookie-pref-item"><span>Cookie analitici</span><input type="checkbox" id="prefAnalytics"></div>
+      <div class="cookie-pref-item"><span>Cookie di marketing</span><input type="checkbox" id="prefMarketing"></div>
+      <a href="privacy-policy.html" class="cookie-policy-link">Leggi la Privacy Policy</a>
+      <button type="button" class="cookie-btn cookie-btn-accept" id="cookieSavePrefs" style="width:100%;">Salva preferenze</button>
+    </div>
+  </div>
+
+  <script>
+    var navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', function() { navbar.classList.toggle('scrolled', window.scrollY > 80); });
+    var navToggle = document.getElementById('navToggle');
+    var navMenu = document.getElementById('navMenu');
+    if (navToggle) navToggle.addEventListener('click', function() { navMenu.classList.toggle('active'); });
+    document.querySelectorAll('.nav-menu a').forEach(function(link) { link.addEventListener('click', function() { navMenu.classList.remove('active'); }); });
+
+    (function(){
+      var COOKIE_KEY='cookieConsent', banner=document.getElementById('cookieBanner'), modal=document.getElementById('cookieModal');
+      function getConsent(){ try{ var s=localStorage.getItem(COOKIE_KEY); return s?JSON.parse(s):null; }catch(e){ return null; } }
+      function setConsent(obj){ try{ localStorage.setItem(COOKIE_KEY, JSON.stringify(obj)); }catch(e){} }
+      function hideBanner(){ if(banner) banner.classList.add('hidden'); }
+      if(getConsent()) hideBanner();
+      document.getElementById('cookieAcceptAll')&&document.getElementById('cookieAcceptAll').addEventListener('click',function(){ setConsent({necessary:true,analytics:true,marketing:true}); hideBanner(); });
+      document.getElementById('cookieNecessaryOnly')&&document.getElementById('cookieNecessaryOnly').addEventListener('click',function(){ setConsent({necessary:true,analytics:false,marketing:false}); hideBanner(); });
+      document.getElementById('cookiePreferences')&&document.getElementById('cookiePreferences').addEventListener('click',function(){ var c=getConsent(); document.getElementById('prefNecessary').checked=true; document.getElementById('prefAnalytics').checked=c?c.analytics:false; document.getElementById('prefMarketing').checked=c?c.marketing:false; if(modal) modal.removeAttribute('hidden'); });
+      function savePrefs(){ setConsent({necessary:true,analytics:document.getElementById('prefAnalytics').checked,marketing:document.getElementById('prefMarketing').checked}); hideBanner(); if(modal) modal.setAttribute('hidden',''); }
+      document.getElementById('cookieSavePrefs')&&document.getElementById('cookieSavePrefs').addEventListener('click',savePrefs);
+      document.getElementById('cookieModalBackdrop')&&document.getElementById('cookieModalBackdrop').addEventListener('click',function(){ if(modal) modal.setAttribute('hidden',''); });
+    })();
+  </script>
+</body>
+</html>

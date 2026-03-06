@@ -71,6 +71,9 @@
     }
 
     .nav-menu {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
       display: flex;
       list-style: none;
       gap: 2rem;
@@ -119,6 +122,15 @@
       margin-bottom: 1rem;
       line-height: 1.2;
       max-width: 800px;
+    }
+
+    .hero h1 .amp {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.6em;
+      font-style: italic;
+      font-weight: 400;
+      color: #C9A84C;
+      vertical-align: middle;
     }
 
     .hero-subtitle {
@@ -315,79 +327,6 @@
       font-weight: 300;
     }
 
-    /* ========== CONTATTI ========== */
-    #contatti {
-      background: linear-gradient(180deg, #111 0%, var(--bg-dark) 100%);
-      padding: 4rem 2rem;
-    }
-
-    .contatti-wrapper {
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    .contatti-note {
-      text-align: center;
-      font-style: italic;
-      color: var(--gold-light);
-      margin-bottom: 1.5rem;
-      font-size: 0.95rem;
-    }
-
-    .form-group {
-      margin-bottom: 1.25rem;
-    }
-
-    .form-group label {
-      display: block;
-      margin-bottom: 0.4rem;
-      font-size: 0.9rem;
-      color: var(--text-cream);
-    }
-
-    .form-group input,
-    .form-group textarea {
-      width: 100%;
-      padding: 0.85rem 1rem;
-      background: var(--bg-card);
-      border: 1px solid var(--border-gold);
-      border-radius: 4px;
-      color: var(--text-white);
-      font-family: 'Lato', sans-serif;
-      font-size: 1rem;
-      transition: border-color 0.3s ease;
-    }
-
-    .form-group input:focus,
-    .form-group textarea:focus {
-      outline: none;
-      border-color: var(--gold);
-    }
-
-    .form-group textarea {
-      min-height: 140px;
-      resize: vertical;
-    }
-
-    .btn-submit {
-      width: 100%;
-      padding: 1rem;
-      background: transparent;
-      color: var(--gold);
-      border: 2px solid var(--gold);
-      font-family: 'Lato', sans-serif;
-      font-size: 1rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .btn-submit:hover {
-      background: var(--gold);
-      color: var(--bg-dark);
-    }
-
     /* ========== FOOTER ========== */
     footer {
       background: #0a0a0a;
@@ -447,6 +386,7 @@
         top: 100%;
         left: 0;
         right: 0;
+        transform: none;
         background: rgba(13, 13, 13, 0.98);
         flex-direction: column;
         padding: 1rem;
@@ -491,6 +431,157 @@
         padding: 3rem 1rem;
       }
     }
+
+    /* ========== COOKIE BANNER ========== */
+    .cookie-banner {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 9999;
+      background: #0d0d0d;
+      border-top: 2px solid var(--gold);
+      padding: 1.25rem 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.5);
+      font-size: 0.95rem;
+    }
+
+    .cookie-banner.hidden { display: none; }
+
+    .cookie-banner-text {
+      color: var(--text-cream);
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .cookie-banner-btns {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .cookie-btn {
+      padding: 0.6rem 1.25rem;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+    }
+
+    .cookie-btn-accept {
+      background: var(--gold);
+      color: var(--bg-dark);
+      border: 2px solid var(--gold);
+    }
+
+    .cookie-btn-accept:hover {
+      background: var(--gold-light);
+      border-color: var(--gold-light);
+    }
+
+    .cookie-btn-necessary {
+      background: transparent;
+      color: var(--gold);
+      border: 2px solid var(--gold);
+    }
+
+    .cookie-btn-necessary:hover {
+      background: rgba(201, 169, 98, 0.15);
+    }
+
+    .cookie-link {
+      background: none;
+      border: none;
+      color: var(--text-cream);
+      font-size: 0.85rem;
+      text-decoration: underline;
+      cursor: pointer;
+      font-family: 'Lato', sans-serif;
+    }
+
+    .cookie-link:hover { color: var(--gold); }
+
+    /* Cookie preferences modal */
+    .cookie-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .cookie-modal[hidden] { display: none; }
+
+    .cookie-modal-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      cursor: pointer;
+    }
+
+    .cookie-modal-content {
+      position: relative;
+      background: var(--bg-card);
+      border: 1px solid var(--border-gold);
+      border-radius: 4px;
+      padding: 2rem;
+      max-width: 420px;
+      width: 100%;
+      box-shadow: var(--shadow);
+    }
+
+    .cookie-modal-content h3 {
+      font-family: 'Playfair Display', serif;
+      color: var(--gold);
+      margin-bottom: 1rem;
+      font-size: 1.35rem;
+    }
+
+    .cookie-modal-content p {
+      font-size: 0.9rem;
+      color: var(--text-cream);
+      margin-bottom: 1rem;
+    }
+
+    .cookie-pref-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      font-size: 0.95rem;
+      color: var(--text-cream);
+    }
+
+    .cookie-pref-item input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--gold);
+      cursor: pointer;
+    }
+
+    .cookie-pref-item input:disabled { cursor: not-allowed; }
+
+    .cookie-modal-content .cookie-policy-link {
+      display: inline-block;
+      margin-bottom: 1.25rem;
+      font-size: 0.85rem;
+      color: var(--gold);
+      text-decoration: underline;
+    }
+
+    .cookie-modal-content .cookie-policy-link:hover { color: var(--gold-light); }
   </style>
 </head>
 <body>
@@ -501,18 +592,18 @@
     </a>
     <button class="nav-toggle" id="navToggle" aria-label="Menu">☰</button>
     <ul class="nav-menu" id="navMenu">
-      <li><a href="#home">Home</a></li>
-      <li><a href="#contatti">Contattaci</a></li>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="contatti.html">Contattaci</a></li>
       <li><a href="#servizi">Servizi</a></li>
-      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="portfolio.html">Portfolio</a></li>
     </ul>
   </nav>
 
   <!-- HERO -->
   <header class="hero" id="home">
-    <h1>M&M Noble Bar: Il tuo Open Bar ovunque lo desideri.</h1>
+    <h1>M<span class="amp">&</span>M Noble Bar: Il tuo Open Bar ovunque lo desideri.</h1>
     <p class="hero-subtitle">Cocktail professionali e servizio impeccabile per matrimoni, feste ed eventi privati. Portiamo l'atmosfera del miglior bar direttamente a casa tua.</p>
-    <a href="#contatti" class="btn-cta">Richiedi preventivo</a>
+    <a href="contatti.html" class="btn-cta">Richiedi preventivo</a>
   </header>
 
   <!-- PERSONALIZZA IL TUO EVENTO -->
@@ -581,34 +672,12 @@
     </div>
   </section>
 
-  <!-- CONTATTI -->
-  <section id="contatti" class="fade-in">
-    <h2 class="section-title">Contattaci</h2>
-    <p class="contatti-note">Il nostro barman sta scrivendo…</p>
-    <div class="contatti-wrapper">
-      <form id="contactForm" class="fade-in">
-        <div class="form-group">
-          <label for="nome">Nome</label>
-          <input type="text" id="nome" name="nome" required placeholder="Il tuo nome">
-        </div>
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input type="email" id="email" name="email" required placeholder="la-tua@email.com">
-        </div>
-        <div class="form-group">
-          <label for="messaggio">Messaggio</label>
-          <textarea id="messaggio" name="messaggio" required placeholder="Scrivi il tuo messaggio..."></textarea>
-        </div>
-        <button type="submit" class="btn-submit">Invia</button>
-      </form>
-    </div>
-  </section>
-
   <!-- FOOTER -->
   <footer>
     <div class="footer-contact">
       <a href="tel:1234567890">Phone: 123-456-7890</a>
       <a href="mailto:info@mysite.com">Email: info@mysite.com</a>
+      <a href="privacy-policy.html">Privacy Policy</a>
     </div>
     <div class="social-icons">
       <a href="#" aria-label="Facebook" title="Facebook"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
@@ -617,6 +686,39 @@
       <a href="#" aria-label="Instagram" title="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
     </div>
   </footer>
+
+  <!-- COOKIE BANNER -->
+  <div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Informativa cookie">
+    <p class="cookie-banner-text">Utilizziamo i cookie per migliorare la tua esperienza sul sito. Puoi accettare tutti i cookie o gestire le tue preferenze.</p>
+    <div class="cookie-banner-btns">
+      <button type="button" class="cookie-btn cookie-btn-accept" id="cookieAcceptAll">Accetta tutti</button>
+      <button type="button" class="cookie-btn cookie-btn-necessary" id="cookieNecessaryOnly">Solo necessari</button>
+      <button type="button" class="cookie-link" id="cookiePreferences">Gestisci preferenze</button>
+    </div>
+  </div>
+
+  <!-- COOKIE PREFERENCES MODAL -->
+  <div class="cookie-modal" id="cookieModal" role="dialog" aria-modal="true" aria-label="Preferenze cookie" hidden>
+    <div class="cookie-modal-backdrop" id="cookieModalBackdrop"></div>
+    <div class="cookie-modal-content">
+      <h3>Preferenze cookie</h3>
+      <p>Seleziona quali categorie di cookie desideri abilitare. I cookie necessari sono sempre attivi per il funzionamento del sito.</p>
+      <div class="cookie-pref-item">
+        <span>Cookie necessari</span>
+        <input type="checkbox" id="prefNecessary" checked disabled>
+      </div>
+      <div class="cookie-pref-item">
+        <span>Cookie analitici</span>
+        <input type="checkbox" id="prefAnalytics">
+      </div>
+      <div class="cookie-pref-item">
+        <span>Cookie di marketing</span>
+        <input type="checkbox" id="prefMarketing">
+      </div>
+      <a href="privacy-policy.html" class="cookie-policy-link">Leggi la Privacy Policy</a>
+      <button type="button" class="cookie-btn cookie-btn-accept" id="cookieSavePrefs" style="width: 100%;">Salva preferenze</button>
+    </div>
+  </div>
 
   <script>
     // Navbar scroll effect
@@ -664,12 +766,79 @@
       observer.observe(el);
     });
 
-    // Form submit
-    document.getElementById('contactForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      alert('Grazie per il tuo messaggio! Ti risponderemo al più presto.');
-      this.reset();
-    });
+    // Cookie banner
+    (function() {
+      var COOKIE_KEY = 'cookieConsent';
+      var banner = document.getElementById('cookieBanner');
+      var modal = document.getElementById('cookieModal');
+
+      function getConsent() {
+        try {
+          var s = localStorage.getItem(COOKIE_KEY);
+          return s ? JSON.parse(s) : null;
+        } catch (e) { return null; }
+      }
+
+      function setConsent(obj) {
+        try {
+          localStorage.setItem(COOKIE_KEY, JSON.stringify(obj));
+        } catch (e) {}
+      }
+
+      function hideBanner() {
+        if (banner) banner.classList.add('hidden');
+      }
+
+      if (getConsent()) {
+        hideBanner();
+      }
+
+      if (document.getElementById('cookieAcceptAll')) {
+        document.getElementById('cookieAcceptAll').addEventListener('click', function() {
+          setConsent({ necessary: true, analytics: true, marketing: true });
+          hideBanner();
+        });
+      }
+
+      if (document.getElementById('cookieNecessaryOnly')) {
+        document.getElementById('cookieNecessaryOnly').addEventListener('click', function() {
+          setConsent({ necessary: true, analytics: false, marketing: false });
+          hideBanner();
+        });
+      }
+
+      if (document.getElementById('cookiePreferences')) {
+        document.getElementById('cookiePreferences').addEventListener('click', function() {
+          var c = getConsent();
+          document.getElementById('prefNecessary').checked = true;
+          document.getElementById('prefAnalytics').checked = c ? c.analytics : false;
+          document.getElementById('prefMarketing').checked = c ? c.marketing : false;
+          if (modal) {
+            modal.removeAttribute('hidden');
+          }
+        });
+      }
+
+      function savePrefsAndClose() {
+        setConsent({
+          necessary: true,
+          analytics: document.getElementById('prefAnalytics').checked,
+          marketing: document.getElementById('prefMarketing').checked
+        });
+        hideBanner();
+        if (modal) modal.setAttribute('hidden', '');
+      }
+
+      if (document.getElementById('cookieSavePrefs')) {
+        document.getElementById('cookieSavePrefs').addEventListener('click', savePrefsAndClose);
+      }
+
+      if (document.getElementById('cookieModalBackdrop')) {
+        document.getElementById('cookieModalBackdrop').addEventListener('click', function() {
+          if (modal) modal.setAttribute('hidden', '');
+        });
+      }
+    })();
   </script>
 </body>
 </html>
