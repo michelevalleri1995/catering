@@ -70,6 +70,9 @@
     }
 
     .nav-menu {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
       display: flex;
       list-style: none;
       gap: 2rem;
@@ -438,6 +441,7 @@
         top: 100%;
         left: 0;
         right: 0;
+        transform: none;
         background: rgba(13, 13, 13, 0.98);
         flex-direction: column;
         padding: 1rem;
@@ -488,9 +492,9 @@
     <button class="nav-toggle" id="navToggle" aria-label="Menu">☰</button>
     <ul class="nav-menu" id="navMenu">
       <li><a href="index.html">Home</a></li>
-      <li><a href="contatti.html">Contattaci</a></li>
       <li><a href="index.html#servizi">Servizi</a></li>
       <li><a href="portfolio.html" class="active">Portfolio</a></li>
+      <li><a href="contatti.html">Contattaci</a></li>
     </ul>
   </nav>
 

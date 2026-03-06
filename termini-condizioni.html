@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contattaci - M&M Noble Bar</title>
+  <title>Termini e Condizioni - M&M Noble Bar</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
@@ -18,226 +18,53 @@
       --border-gold: rgba(201, 169, 98, 0.5);
       --shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
     }
-
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
     html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'Lato', sans-serif;
-      background: var(--bg-dark);
-      color: var(--text-cream);
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-
+    body { font-family: 'Lato', sans-serif; background: var(--bg-dark); color: var(--text-cream); line-height: 1.7; overflow-x: hidden; }
     h1, h2, h3 { font-family: 'Playfair Display', serif; font-weight: 600; }
 
-    /* ========== NAVBAR ========== */
     .navbar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 1000;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      display: flex; align-items: center; justify-content: space-between;
       padding: 1rem 2rem;
-      background: rgba(13, 13, 13, 0.6);
-      backdrop-filter: blur(8px);
+      background: rgba(13, 13, 13, 0.6); backdrop-filter: blur(8px);
       transition: background 0.4s ease, box-shadow 0.4s ease;
     }
-
-    .navbar.scrolled {
-      background: rgba(13, 13, 13, 0.95);
-      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
-    }
-
+    .navbar.scrolled { background: rgba(13, 13, 13, 0.95); box-shadow: 0 2px 20px rgba(0,0,0,0.5); }
     .navbar-logo { height: 50px; width: auto; object-fit: contain; }
-
     .nav-menu {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      list-style: none;
-      gap: 2rem;
+      position: absolute; left: 50%; transform: translateX(-50%);
+      display: flex; list-style: none; gap: 2rem;
     }
+    .nav-menu a { color: var(--text-cream); text-decoration: none; font-size: 0.95rem; letter-spacing: 0.05em; transition: color 0.3s ease; }
+    .nav-menu a:hover { color: var(--gold); }
+    .nav-toggle { display: none; background: none; border: 1px solid var(--gold); color: var(--gold); padding: 0.5rem 0.75rem; cursor: pointer; font-size: 1rem; }
 
-    .nav-menu a {
-      color: var(--text-cream);
-      text-decoration: none;
-      font-weight: 400;
-      font-size: 0.95rem;
-      letter-spacing: 0.05em;
-      transition: color 0.3s ease;
-    }
+    .legal-page { padding: 6rem 2rem 4rem; max-width: 800px; margin: 0 auto; }
+    .legal-page h1 { color: var(--text-white); font-size: clamp(1.8rem, 4vw, 2.5rem); margin-bottom: 2rem; }
+    .legal-page h2 { color: var(--gold); font-size: 1.25rem; margin-top: 2rem; margin-bottom: 0.75rem; }
+    .legal-page p { margin-bottom: 1rem; font-size: 0.95rem; color: var(--text-cream); }
+    .legal-page ul { margin: 0.5rem 0 1rem 1.5rem; }
+    .legal-page li { margin-bottom: 0.5rem; }
+    .legal-page a { color: var(--gold); text-decoration: underline; }
+    .legal-page a:hover { color: var(--gold-light); }
+    .legal-updated { font-size: 0.9rem; color: var(--gold-light); margin-bottom: 2rem; }
 
-    .nav-menu a:hover,
-    .nav-menu a.active { color: var(--gold); }
-
-    .nav-toggle {
-      display: none;
-      background: none;
-      border: 1px solid var(--gold);
-      color: var(--gold);
-      padding: 0.5rem 0.75rem;
-      cursor: pointer;
-      font-size: 1rem;
-    }
-
-    /* ========== PAGE + CONTATTI ========== */
-    .page-header {
-      padding: 6rem 2rem 2rem;
-      text-align: center;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .page-title {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2rem, 5vw, 3rem);
-      color: var(--text-white);
-    }
-
-    #contatti {
-      background: linear-gradient(180deg, #111 0%, var(--bg-dark) 100%);
-      padding: 2rem 2rem 4rem;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .contatti-wrapper { max-width: 600px; margin: 0 auto; }
-
-    .contatti-note {
-      text-align: center;
-      font-style: italic;
-      color: var(--gold-light);
-      margin-bottom: 1.5rem;
-      font-size: 0.95rem;
-    }
-
-    .form-group { margin-bottom: 1.25rem; }
-
-    .form-group label {
-      display: block;
-      margin-bottom: 0.4rem;
-      font-size: 0.9rem;
-      color: var(--text-cream);
-    }
-
-    .form-group input,
-    .form-group textarea {
-      width: 100%;
-      padding: 0.85rem 1rem;
-      background: var(--bg-card);
-      border: 1px solid var(--border-gold);
-      border-radius: 4px;
-      color: var(--text-white);
-      font-family: 'Lato', sans-serif;
-      font-size: 1rem;
-      transition: border-color 0.3s ease;
-    }
-
-    .form-group input:focus,
-    .form-group textarea:focus {
-      outline: none;
-      border-color: var(--gold);
-    }
-
-    .form-group textarea {
-      min-height: 140px;
-      resize: vertical;
-    }
-
-    .btn-submit {
-      width: 100%;
-      padding: 1rem;
-      background: transparent;
-      color: var(--gold);
-      border: 2px solid var(--gold);
-      font-family: 'Lato', sans-serif;
-      font-size: 1rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .btn-submit:hover {
-      background: var(--gold);
-      color: var(--bg-dark);
-    }
-
-    /* ========== FOOTER ========== */
     footer {
-      background: #0a0a0a;
-      padding: 2.5rem 2rem;
-      text-align: center;
+      background: #0a0a0a; padding: 2.5rem 2rem; text-align: center;
       border-top: 1px solid rgba(201, 169, 98, 0.2);
     }
-
     .footer-contact { margin-bottom: 1.5rem; font-size: 0.95rem; }
-
-    .footer-contact a {
-      color: var(--gold);
-      text-decoration: none;
-      margin: 0 0.5rem;
-    }
-
+    .footer-contact a { color: var(--gold); text-decoration: none; margin: 0 0.5rem; }
     .footer-contact a:hover { text-decoration: underline; }
-
     .footer-legal { font-size: 0.8em; margin-bottom: 1rem; }
     .footer-legal a { color: rgba(201, 169, 98, 0.85); text-decoration: none; }
     .footer-legal a:hover { color: var(--gold); text-decoration: underline; }
     .footer-sep { color: #888; margin: 0 0.5rem; pointer-events: none; }
-
-    .social-icons {
-      display: flex;
-      justify-content: center;
-      gap: 1.25rem;
-      margin-top: 1rem;
-    }
-
-    .social-icons a {
-      color: var(--text-cream);
-      font-size: 1.25rem;
-      transition: color 0.3s ease;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 40px;
-      height: 40px;
-    }
-
-    .social-icons svg { width: 22px; height: 22px; fill: currentColor; }
-
+    .social-icons { display: flex; justify-content: center; gap: 1.25rem; margin-top: 1rem; }
+    .social-icons a { color: var(--text-cream); display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; transition: color 0.3s ease; }
     .social-icons a:hover { color: var(--gold); }
-
-    @media (max-width: 768px) {
-      .nav-menu {
-        display: none;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        transform: none;
-        background: rgba(13, 13, 13, 0.98);
-        flex-direction: column;
-        padding: 1rem;
-        gap: 0.5rem;
-      }
-      .nav-menu.active { display: flex; }
-      .nav-toggle { display: block; }
-    }
-
-    @media (max-width: 480px) {
-      .navbar { padding: 0.75rem 1rem; }
-      .navbar-logo { height: 40px; }
-      .page-header { padding: 5rem 1rem 1.5rem; }
-      #contatti { padding: 1rem 1rem 3rem; }
-    }
+    .social-icons svg { width: 22px; height: 22px; fill: currentColor; }
 
     .cookie-banner { position: fixed; bottom: 0; left: 0; right: 0; z-index: 9999; background: #0d0d0d; border-top: 2px solid var(--gold); padding: 1.25rem 2rem; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; box-shadow: 0 -4px 24px rgba(0,0,0,0.5); font-size: 0.95rem; }
     .cookie-banner.hidden { display: none; }
@@ -261,46 +88,69 @@
     .cookie-pref-item input:disabled { cursor: not-allowed; }
     .cookie-modal-content .cookie-policy-link { display: inline-block; margin-bottom: 1.25rem; font-size: 0.85rem; color: var(--gold); text-decoration: underline; }
     .cookie-modal-content .cookie-policy-link:hover { color: var(--gold-light); }
+
+    @media (max-width: 768px) {
+      .nav-menu { display: none; position: absolute; top: 100%; left: 0; right: 0; transform: none; background: rgba(13,13,13,0.98); flex-direction: column; padding: 1rem; gap: 0.5rem; }
+      .nav-menu.active { display: flex; }
+      .nav-toggle { display: block; }
+    }
+    @media (max-width: 480px) {
+      .navbar { padding: 0.75rem 1rem; }
+      .navbar-logo { height: 40px; }
+      .legal-page { padding: 5rem 1rem 3rem; }
+    }
   </style>
 </head>
 <body>
   <nav class="navbar" id="navbar">
-    <a href="index.html">
-      <img src="https://static.wixstatic.com/media/c76f97_962f91a556854546bad9e7a654bc6a67~mv2.png" alt="M&M Noble Bar" class="navbar-logo">
-    </a>
+    <a href="index.html"><img src="https://static.wixstatic.com/media/c76f97_962f91a556854546bad9e7a654bc6a67~mv2.png" alt="M&M Noble Bar" class="navbar-logo"></a>
     <button class="nav-toggle" id="navToggle" aria-label="Menu">☰</button>
     <ul class="nav-menu" id="navMenu">
       <li><a href="index.html">Home</a></li>
       <li><a href="index.html#servizi">Servizi</a></li>
       <li><a href="portfolio.html">Portfolio</a></li>
-      <li><a href="contatti.html" class="active">Contattaci</a></li>
+      <li><a href="contatti.html">Contattaci</a></li>
     </ul>
   </nav>
 
-  <header class="page-header">
-    <h1 class="page-title">Contattaci</h1>
-  </header>
+  <main class="legal-page">
+    <h1>Termini e Condizioni</h1>
+    <p class="legal-updated">Ultimo aggiornamento: marzo 2025</p>
 
-  <section id="contatti">
-    <p class="contatti-note">Il nostro barman sta scrivendo…</p>
-    <div class="contatti-wrapper">
-      <form id="contactForm">
-        <div class="form-group">
-          <label for="nome">Nome</label>
-          <input type="text" id="nome" name="nome" required placeholder="Il tuo nome">
-        </div>
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input type="email" id="email" name="email" required placeholder="la-tua@email.com">
-        </div>
-        <div class="form-group">
-          <label for="messaggio">Messaggio</label>
-          <textarea id="messaggio" name="messaggio" required placeholder="Scrivi il tuo messaggio..."></textarea>
-        </div>
-        <button type="submit" class="btn-submit">Invia</button>
-      </form>
-    </div>
-  </section>
+    <p>I presenti Termini e Condizioni regolano l'utilizzo del sito web di M&M Noble Bar e l'eventuale richiesta di servizi (open bar, catering, eventi). Utilizzando il sito o inviando richieste tramite il modulo di contatto, l'utente accetta integralmente le condizioni sotto indicate.</p>
+
+    <h2>1. Oggetto e ambito</h2>
+    <p>M&M Noble Bar offre servizi di open bar e catering per eventi privati (matrimoni, feste, celebrazioni). I presenti termini si applicano alla navigazione sul sito, alla richiesta di preventivi e alla fruizione dei servizi descritti, salvo diverso accordo scritto per singoli incarichi.</p>
+
+    <h2>2. Utilizzo del sito</h2>
+    <p>L'utente si impegna a utilizzare il sito in modo lecito, senza ledere diritti di terzi o le normative vigenti. È vietato l'uso del sito per scopi illeciti, diffamatori o per inviare contenuti non autorizzati. M&M Noble Bar si riserva di negare l'accesso o l'uso del servizio in caso di violazione dei presenti termini.</p>
+
+    <h2>3. Richieste di preventivo e contatti</h2>
+    <p>Le richieste inviate tramite il modulo di contatto (nome, email, messaggio) sono trattate secondo la <a href="privacy-policy.html">Privacy Policy</a>. L'invio di una richiesta non costituisce obbligo contrattuale per le parti; un eventuale accordo sarà regolato da preventivo e condizioni specifiche concordate per iscritto.</p>
+
+    <h2>4. Prezzi e pagamenti</h2>
+    <p>I prezzi e le modalità di pagamento sono indicati nel preventivo inviato al cliente. Salvo diversa indicazione, i pagamenti sono regolati secondo le scadenze e le modalità ivi indicate. Eventuali acconti o caparre sono disciplinati nel contratto o nel preventivo accettato.</p>
+
+    <h2>5. Cancellazioni e modifiche</h2>
+    <p>Eventuali politiche di cancellazione o modifica della prenotazione sono definite nel preventivo o nel contratto sottoscritto. Per richieste di modifica o disdetta è necessario contattare M&M Noble Bar ai recapiti indicati sul sito.</p>
+
+    <h2>6. Limitazione di responsabilità</h2>
+    <p>M&M Noble Bar non è responsabile per danni indiretti, consequenziali o punitivi derivanti dall'uso del sito o dall'impossibilità di usarlo. I contenuti del sito sono forniti "così come sono"; non viene garantita l'assenza di errori o interruzioni. La responsabilità per i servizi erogati è limitata a quanto previsto dalla legge e dal contratto con il cliente.</p>
+
+    <h2>7. Proprietà intellettuale</h2>
+    <p>Testi, immagini, loghi e contenuti del sito sono di proprietà di M&M Noble Bar o concessi in licenza. È vietata la riproduzione, distribuzione o utilizzo non autorizzato senza previo consenso scritto.</p>
+
+    <h2>8. Link esterni</h2>
+    <p>Il sito può contenere link a siti di terzi. M&M Noble Bar non è responsabile del contenuto o delle politiche di tali siti. L'accesso ai link esterni è a rischio e responsabilità dell'utente.</p>
+
+    <h2>9. Legge applicabile e foro competente</h2>
+    <p>Per ogni controversia relativa ai presenti Termini e Condizioni o ai servizi di M&M Noble Bar si applica la legge italiana. Il foro competente è quello del luogo di residenza o domicilio del consumatore, ove applicabile, oppure il foro competente per legge.</p>
+
+    <h2>10. Modifiche</h2>
+    <p>M&M Noble Bar si riserva di modificare i presenti Termini e Condizioni in qualsiasi momento. Le modifiche saranno efficaci dalla pubblicazione su questa pagina. Si invita a consultare periodicamente la pagina per restare informati. L'uso continuato del sito dopo le modifiche costituisce accettazione delle nuove condizioni.</p>
+
+    <p>Per domande sui presenti Termini e Condizioni: <a href="mailto:info@mysite.com">info@mysite.com</a> | Tel. 123-456-7890.</p>
+  </main>
 
   <footer>
     <div class="footer-contact">
@@ -342,23 +192,12 @@
   </div>
 
   <script>
-    const navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', function() {
-      navbar.classList.toggle('scrolled', window.scrollY > 80);
-    });
-
-    const navToggle = document.getElementById('navToggle');
-    const navMenu = document.getElementById('navMenu');
-    navToggle.addEventListener('click', () => navMenu.classList.toggle('active'));
-    document.querySelectorAll('.nav-menu a').forEach(link => {
-      link.addEventListener('click', () => navMenu.classList.remove('active'));
-    });
-
-    document.getElementById('contactForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      alert('Grazie per il tuo messaggio! Ti risponderemo al più presto.');
-      this.reset();
-    });
+    var navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', function() { navbar.classList.toggle('scrolled', window.scrollY > 80); });
+    var navToggle = document.getElementById('navToggle');
+    var navMenu = document.getElementById('navMenu');
+    if (navToggle) navToggle.addEventListener('click', function() { navMenu.classList.toggle('active'); });
+    document.querySelectorAll('.nav-menu a').forEach(function(link) { link.addEventListener('click', function() { navMenu.classList.remove('active'); }); });
 
     (function(){
       var COOKIE_KEY='cookieConsent', banner=document.getElementById('cookieBanner'), modal=document.getElementById('cookieModal');
