@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>M&M Noble Bar — Biglietto da Visita</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <style>
+    /* =============================================
+       CONFIGURAZIONE — modifica questi valori
+    ============================================= */
+    :root {
+      --nome:       "M&M Noble Bar";
+      --gold:       #c9a962;
+      --gold-light: #e0c98a;
+      --dark:       #0d0d0d;
+      --card-bg:    #111111;
+      --text:       #f5f5f0;
+      --text-muted: #a89060;
+
+      /* Dimensioni biglietto standard: 85.6mm × 54mm */
+      --w: 85.6mm;
+      --h: 54mm;
+    }
+
+    /* =============================================
+       LAYOUT PAGINA (anteprima schermo)
+    ============================================= */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #1a1a1a;
+      font-family: 'Lato', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px 60px;
+      gap: 20px;
+      min-height: 100vh;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      color: var(--gold);
+      font-size: 18px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .istruzioni {
+      color: #888;
+      font-size: 12px;
+      text-align: center;
+      line-height: 1.6;
+      max-width: 500px;
+      margin-bottom: 20px;
+    }
+
+    .istruzioni strong { color: var(--gold); }
+
+    .cards-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .card-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .card-label {
+      color: var(--gold);
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    /* =============================================
+       BIGLIETTO BASE
+    ============================================= */
+    .card {
+      width: var(--w);
+      height: var(--h);
+      border-radius: 3mm;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.7);
+    }
+
+    /* =============================================
+       FRONTE
+    ============================================= */
+    .card-front {
+      background: var(--dark);
+      border: 0.3mm solid rgba(201, 169, 98, 0.35);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 5mm 6mm;
+    }
+
+    /* Angolo decorativo oro in alto a destra */
+    .card-front::before {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 18mm; height: 18mm;
+      background: linear-gradient(225deg, rgba(201,169,98,0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* Linea decorativa oro */
+    .card-front::after {
+      content: '';
+      position: absolute;
+      top: 12mm; left: 6mm; right: 6mm;
+      height: 0.2mm;
+      background: linear-gradient(to right, var(--gold), transparent);
+    }
+
+    .front-top {
+      display: flex;
+      align-items: flex-start;
+      gap: 3mm;
+      padding-top: 2mm;
+    }
+
+    .front-logo {
+      height: 11mm;
+      width: auto;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+
+    .front-brand {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .brand-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 1px;
+      line-height: 1.2;
+    }
+
+    .brand-tagline {
+      font-size: 6.5px;
+      color: var(--text-muted);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-top: 1.5mm;
+    }
+
+    .front-divider {
+      width: 100%;
+      height: 0.2mm;
+      background: linear-gradient(to right, rgba(201,169,98,0.6), transparent);
+      margin: 1mm 0;
+    }
+
+    .front-role {
+      font-family: 'Playfair Display', serif;
+      font-size: 8.5px;
+      color: var(--text);
+      letter-spacing: 0.5px;
+      /* ⬇️  MODIFICA: inserisci il ruolo/nome persona */
+      /* Esempio: "Michele Valleri — Bartender & Event Manager" */
+    }
+
+    .front-contacts {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5mm;
+    }
+
+    .contact-row {
+      display: flex;
+      align-items: center;
+      gap: 2mm;
+      font-size: 6.5px;
+      color: var(--text);
+      letter-spacing: 0.3px;
+    }
+
+    .contact-icon {
+      color: var(--gold);
+      font-size: 7px;
+      width: 3.5mm;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .front-services {
+      display: flex;
+      gap: 2mm;
+    }
+
+    .service-tag {
+      font-size: 5.5px;
+      color: var(--dark);
+      background: var(--gold);
+      padding: 0.8mm 2mm;
+      border-radius: 20mm;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    /* =============================================
+       RETRO
+    ============================================= */
+    .card-back {
+      background: var(--dark);
+      border: 0.3mm solid rgba(201, 169, 98, 0.35);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3mm;
+      padding: 5mm;
+    }
+
+    .back-title {
+      font-size: 5.5px;
+      color: var(--text-muted);
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+    }
+
+    /* Contenitore QR code con logo al centro */
+    .qr-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #qrcode canvas,
+    #qrcode img {
+      display: block;
+      border-radius: 1.5mm;
+    }
+
+    .qr-logo-overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 20%;
+      height: 20%;
+      background: white;
+      border-radius: 2mm;
+      padding: 1px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+    }
+
+    .qr-logo-overlay img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .back-url {
+      font-size: 5.5px;
+      color: var(--text-muted);
+      letter-spacing: 1px;
+    }
+
+    .back-url strong {
+      color: var(--gold);
+    }
+
+    /* Angoli decorativi retro */
+    .corner {
+      position: absolute;
+      width: 5mm;
+      height: 5mm;
+      border-color: var(--gold);
+      border-style: solid;
+      opacity: 0.4;
+    }
+    .corner-tl { top: 3mm; left: 3mm; border-width: 0.3mm 0 0 0.3mm; }
+    .corner-tr { top: 3mm; right: 3mm; border-width: 0.3mm 0.3mm 0 0; }
+    .corner-bl { bottom: 3mm; left: 3mm; border-width: 0 0 0.3mm 0.3mm; }
+    .corner-br { bottom: 3mm; right: 3mm; border-width: 0 0.3mm 0.3mm 0; }
+
+    /* =============================================
+       STAMPA
+    ============================================= */
+    .print-btn {
+      margin-top: 30px;
+      padding: 10px 30px;
+      background: var(--gold);
+      color: var(--dark);
+      border: none;
+      font-family: 'Lato', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      border-radius: 3px;
+    }
+    .print-btn:hover { background: var(--gold-light); }
+
+    @media print {
+      body {
+        background: white;
+        padding: 0;
+        display: block;
+      }
+      h1, .istruzioni, .card-label, .print-btn { display: none; }
+      .cards-wrapper {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 5mm;
+        padding: 10mm;
+      }
+      .card-group { gap: 0; page-break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>M&amp;M Noble Bar — Biglietto da Visita</h1>
+  <p class="istruzioni">
+    Anteprima fronte e retro. <strong>Personalizza</strong> aprendo questo file in un editor di testo:<br>
+    modifica i contatti nella sezione <code>FRONTE</code> e l'URL del sito nel <code>&lt;script&gt;</code> in fondo.<br>
+    Poi usa <strong>Ctrl+P → Stampa</strong> per esportare in PDF o stampare.
+  </p>
+
+  <div class="cards-wrapper">
+
+    <!-- FRONTE -->
+    <div class="card-group">
+      <span class="card-label">Fronte</span>
+      <div class="card card-front">
+
+        <div class="front-top">
+          <!-- Logo -->
+          <img
+            class="front-logo"
+            src="https://static.wixstatic.com/media/c76f97_962f91a556854546bad9e7a654bc6a67~mv2.png"
+            alt="M&M Noble Bar logo"
+            crossorigin="anonymous"
+          >
+          <div class="front-brand">
+            <div class="brand-name">M&amp;M Noble Bar</div>
+            <div class="brand-tagline">Open Bar &amp; Catering · Eventi Esclusivi</div>
+          </div>
+        </div>
+
+        <div class="front-divider"></div>
+
+        <!-- ⬇️ MODIFICA: nome/ruolo della persona -->
+        <div class="front-role"> &nbsp;·&nbsp; Bartender &amp; Event planner</div>
+
+        <div class="front-contacts">
+          <!-- ⬇️ MODIFICA: inserisci i contatti reali -->
+          <div class="contact-row">
+            <span class="contact-icon">✆</span>
+            <span>+39 349 2943219</span>
+          </div>
+          <div class="contact-row">
+            <span class="contact-icon">✉</span>
+            <span>info@noblebar.com</span>
+          </div>
+          <div class="contact-row">
+            <span class="contact-icon">⌖</span>
+            <span>www.noblebar.com</span>
+          </div>
+          <!-- Riga indirizzo (decommentare se necessario)
+          <div class="contact-row">
+            <span class="contact-icon">⌂</span>
+            <span>Via Roma 1, Milano</span>
+          </div>
+          -->
+        </div>
+
+        <div class="front-services">
+          <span class="service-tag">Open Bar</span>
+          <span class="service-tag">Cocktail</span>
+          <span class="service-tag">Matrimoni</span>
+          <span class="service-tag">Private Events</span>
+        </div>
+
+      </div><!-- /card-front -->
+    </div>
+
+    <!-- RETRO -->
+    <div class="card-group">
+      <span class="card-label">Retro</span>
+      <div class="card card-back">
+        <div class="corner corner-tl"></div>
+        <div class="corner corner-tr"></div>
+        <div class="corner corner-bl"></div>
+        <div class="corner corner-br"></div>
+
+        <div class="back-title">Visita il nostro sito</div>
+
+        <div class="qr-wrapper">
+          <div id="qrcode"></div>
+          <div class="qr-logo-overlay">
+            <img
+              src="https://static.wixstatic.com/media/c76f97_962f91a556854546bad9e7a654bc6a67~mv2.png"
+              alt="logo"
+              crossorigin="anonymous"
+            >
+          </div>
+        </div>
+
+        <!-- ⬇️ MODIFICA: aggiorna con l'URL definitivo del sito -->
+        <div class="back-url"><strong>www.noblebar.com</strong></div>
+
+      </div><!-- /card-back -->
+    </div>
+
+  </div><!-- /cards-wrapper -->
+
+  <button class="print-btn" onclick="window.print()">Stampa / Esporta PDF</button>
+
+  <script>
+    // =============================================
+    // ⬇️ MODIFICA: inserisci l'URL definitivo del sito
+    // =============================================
+    const SITO_URL = "https://www.noblebar.com";
+
+    // Generazione QR code
+    new QRCode(document.getElementById("qrcode"), {
+      text: SITO_URL,
+      width: 110,
+      height: 110,
+      colorDark: "#0d0d0d",
+      colorLight: "#ffffff",
+      correctLevel: QRCode.CorrectLevel.H   // alta correzione errori (necessaria per il logo sovrapposto)
+    });
+  </script>
+
+</body>
+</html>
