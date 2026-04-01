@@ -162,6 +162,28 @@
       color: var(--bg-dark);
     }
 
+    .form-honey {
+      position: absolute;
+      left: -9999px;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .form-success {
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.25rem;
+      background: rgba(201, 169, 98, 0.12);
+      border: 1px solid var(--border-gold);
+      border-radius: 4px;
+      color: var(--text-white);
+      font-size: 0.95rem;
+    }
+
+    .form-success[hidden] { display: none !important; }
+
     /* ========== FOOTER ========== */
     footer {
       background: #0a0a0a;
@@ -275,7 +297,14 @@
 
   <section id="contatti">
     <div class="contatti-wrapper">
-      <form id="contactForm">
+      <p id="formSuccess" class="form-success" hidden role="status">
+        Messaggio inviato correttamente. Ti risponderemo al più presto.
+      </p>
+      <form id="contactForm" action="https://formsubmit.co/info@mmnoblebar.com" method="POST">
+        <input type="hidden" name="_subject" value="Nuovo messaggio dal sito M&amp;M Noble Bar">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_next" id="formSubmitNext" value="">
+        <input type="text" name="_honey" class="form-honey" tabindex="-1" autocomplete="off" aria-hidden="true">
         <div class="form-group">
           <label for="nome">Nome</label>
           <input type="text" id="nome" name="nome" required placeholder="Il tuo nome">
@@ -345,11 +374,18 @@
       link.addEventListener('click', () => navMenu.classList.remove('active'));
     });
 
-    document.getElementById('contactForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      alert('Grazie per il tuo messaggio! Ti risponderemo al più presto.');
-      this.reset();
-    });
+    (function initContactFormSubmit() {
+      var nextInput = document.getElementById('formSubmitNext');
+      if (nextInput) {
+        nextInput.value = window.location.origin + window.location.pathname + '?invio=ok';
+      }
+      var params = new URLSearchParams(window.location.search);
+      if (params.get('invio') === 'ok') {
+        var el = document.getElementById('formSuccess');
+        if (el) el.removeAttribute('hidden');
+        history.replaceState(null, '', window.location.pathname + window.location.hash);
+      }
+    })();
 
     (function(){
       var COOKIE_KEY='cookieConsent', banner=document.getElementById('cookieBanner'), modal=document.getElementById('cookieModal');
